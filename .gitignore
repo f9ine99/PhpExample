@@ -1,2 +1,16 @@
 .env
+.env
+.env.local
+.env.*.local
+.system_generated
+brain
+walkthrough.md
+task.md
+implementation_plan.md
+.gitignore
+Dockerfile
+.dockerignore
+vendor/
+*.log
+.DS_Store
 
