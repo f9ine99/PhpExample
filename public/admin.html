@@ -182,7 +182,7 @@
     <div class="container">
         <header>
             <h1>User Management</h1>
-            <a href="logout.php" class="logout-btn">Sign Out</a>
+            <a href="/auth/logout.php" class="logout-btn">Sign Out</a>
         </header>
 
         <div class="table-wrapper">
@@ -213,9 +213,9 @@
     <script>
         async function fetchUsers() {
             try {
-                const response = await fetch('admin_api.php');
+                const response = await fetch('/api/admin_api.php');
                 if (response.status === 403) {
-                    window.location.href = 'login.html?error=' + encodeURIComponent('Access denied. Please log in as admin.');
+                    window.location.href = '/login.html?error=' + encodeURIComponent('Access denied. Please log in as admin.');
                     return;
                 }
                 if (!response.ok) throw new Error('Failed to fetch data');

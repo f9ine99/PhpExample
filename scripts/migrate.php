@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/../config/db.php';
 
 try {
     echo "Starting migration on host: " . getenv('DB_HOST') . "...\n";

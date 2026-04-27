@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once __DIR__ . '/../../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Basic validation
     if (empty($username) || empty($email) || empty($password)) {
-        header('Location: register.html?error=' . urlencode('Required fields are missing.'));
+        header('Location: /register.html?error=' . urlencode('Required fields are missing.'));
         exit;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header('Location: register.html?error=' . urlencode('Invalid email format.'));
+        header('Location: /register.html?error=' . urlencode('Invalid email format.'));
         exit;
     }
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $email]);
         
         if ($stmt->fetch()) {
-            header('Location: register.html?error=' . urlencode('Username or email already exists.'));
+            header('Location: /register.html?error=' . urlencode('Username or email already exists.'));
             exit;
         }
 
@@ -130,22 +130,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <h1>Registration Successful!</h1>
                     <p>Welcome aboard, <strong><?php echo htmlspecialchars($username); ?></strong>. Your account has been created successfully. You can now access your dashboard.</p>
-                    <a href="login.html" class="btn btn-primary">Continue to Login</a>
-                    <a href="register.html" class="btn btn-secondary">Create Another Account</a>
+                    <a href="/login.html" class="btn btn-primary">Continue to Login</a>
+                    <a href="/register.html" class="btn btn-secondary">Create Another Account</a>
                 </div>
             </body>
             </html>
             <?php
         } else {
-            header('Location: register.html?error=' . urlencode('Something went wrong. Please try again.'));
+            header('Location: /register.html?error=' . urlencode('Something went wrong. Please try again.'));
         }
 
     } catch (PDOException $e) {
         // Log error and show generic message to user
         error_log($e->getMessage());
-        header('Location: register.html?error=' . urlencode('Database error. Please contact administrator.'));
+        header('Location: /register.html?error=' . urlencode('Database error. Please contact administrator.'));
     }
 } else {
     // Redirect back to form if accessed directly
-    header('Location: register.html');
+    header('Location: /register.html');
 }

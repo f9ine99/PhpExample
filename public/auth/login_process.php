@@ -1,14 +1,14 @@
 <?php
 
 session_start();
-require_once 'db.php';
+require_once __DIR__ . '/../../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usernameOrEmail = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if (empty($usernameOrEmail) || empty($password)) {
-        header('Location: login.html?error=' . urlencode('All fields are required.'));
+        header('Location: /login.html?error=' . urlencode('All fields are required.'));
         exit;
     }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['is_admin'] = (bool)$user['is_admin'];
 
             if ($_SESSION['is_admin']) {
-                header('Location: admin.html');
+                header('Location: /admin.html');
             } else {
                 // Success UI
                 ?>
@@ -119,8 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <h1>Login Successful!</h1>
                         <p>Welcome back, <strong><?php echo htmlspecialchars($user['username']); ?></strong>. We've missed you! You are now logged into your secure account.</p>
-                        <a href="index.html" class="btn btn-primary">Go to Home</a>
-                        <a href="logout.php" class="btn btn-secondary">Sign Out</a>
+                        <a href="/index.html" class="btn btn-primary">Go to Home</a>
+                        <a href="/auth/logout.php" class="btn btn-secondary">Sign Out</a>
                     </div>
                 </body>
                 </html>
@@ -128,15 +128,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit;
         } else {
-            header('Location: login.html?error=' . urlencode('Invalid username or password.'));
+            header('Location: /login.html?error=' . urlencode('Invalid username or password.'));
             exit;
         }
 
     } catch (PDOException $e) {
         error_log($e->getMessage());
-        header('Location: login.html?error=' . urlencode('Database error. Please try again later.'));
+        header('Location: /login.html?error=' . urlencode('Database error. Please try again later.'));
         exit;
     }
 } else {
-    header('Location: login.html');
+    header('Location: /login.html');
 }

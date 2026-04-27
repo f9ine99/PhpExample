@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 
 // Security check: Only admins allowed
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
-    header('Location: login.html?error=' . urlencode('Access denied. Admin privileges required.'));
+    header('Location: /login.html?error=' . urlencode('Access denied. Admin privileges required.'));
     exit;
 }
 
@@ -169,7 +169,7 @@ try {
             <h1>Admin Dashboard</h1>
             <div style="display: flex; gap: 16px; align-items: center;">
                 <span class="welcome-text">Logged in as <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-                <a href="logout.php" class="logout-btn">Sign Out</a>
+                <a href="/auth/logout.php" class="logout-btn">Sign Out</a>
             </div>
         </header>
 

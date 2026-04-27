@@ -24,8 +24,8 @@ function loadEnv($path) {
     }
 }
 
-// Load .env file
-loadEnv(__DIR__ . '/.env');
+// Load .env file from project root
+loadEnv(dirname(__DIR__) . '/.env');
 
 // Database connection configuration
 $host = getenv('DB_HOST') ?: 'localhost';
